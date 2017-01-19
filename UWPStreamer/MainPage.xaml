@@ -7,7 +7,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <Grid Background="Black">
+        <Image x:Name="Screen1" Width="Auto" Height="Auto" RenderTransformOrigin="0.5,0.5" >
+            <Image.RenderTransform>
+                <CompositeTransform Rotation="270" ScaleX="1.5" ScaleY="1.5"/>
+            </Image.RenderTransform>
+        </Image>
     </Grid>
 </Page>
