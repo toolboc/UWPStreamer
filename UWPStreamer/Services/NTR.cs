@@ -140,8 +140,9 @@ namespace UWPStreamer.Services
                 priorityScreenBuffer.AddRange(bytes.GetRange(4, bytes.Count - 4));
                 priorityExpectedPacket++;
 
-                if(await TryDisplayImage(priorityScreenBuffer, currentScreen))
+                if(isLastPacket == 1)
                 {
+                    await TryDisplayImage(priorityScreenBuffer, currentScreen);
                     priorityExpectedFrame = 0;
                     priorityExpectedPacket = 0;
                 }
@@ -161,8 +162,9 @@ namespace UWPStreamer.Services
                 secondaryScreenBuffer.AddRange(bytes.GetRange(4, bytes.Count - 4));
                 secondaryExpectedPacket++;
 
-                if(await TryDisplayImage(secondaryScreenBuffer, currentScreen))
+                if(isLastPacket == 1)
                 {
+                    await TryDisplayImage(secondaryScreenBuffer, currentScreen);
                     secondaryExpectedFrame = 0;
                     secondaryExpectedPacket = 0;
                 }
@@ -180,11 +182,8 @@ namespace UWPStreamer.Services
 
         }
 
-        private async Task<bool> TryDisplayImage(List<byte> screenBuffer, int screen)
+        private async Task TryDisplayImage(List<byte> screenBuffer, int screen)
         {
-            //JPEG Stream ends with "FFD9" | FF = 255, D9 = 217
-            if (screenBuffer.Count > 1 && screenBuffer.Last() == 217 && screenBuffer[screenBuffer.Count - 2] == 255)
-            {
                 await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 async () =>
                     {
@@ -203,11 +202,7 @@ namespace UWPStreamer.Services
                                     }
                                     );
 
-                screenBuffer.Clear();
-                return true;
-            }
-
-            return false;
+                screenBuffer.Clear();                
         }
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
