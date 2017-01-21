@@ -7,11 +7,24 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="Black">
-        <Image x:Name="Screen1" Width="Auto" Height="Auto" RenderTransformOrigin="0.5,0.5" >
+    <Grid>
+        <Grid.Background>
+            <ImageBrush Stretch="Fill" ImageSource="Assets/bg.jpg"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Image x:Name="Screen1" Width="Auto" Height="Auto" Source="{Binding Screen1}" RenderTransformOrigin="0.5,0.5"  >
             <Image.RenderTransform>
-                <CompositeTransform Rotation="270" ScaleX="1.5" ScaleY="1.5"/>
+                <CompositeTransform Rotation="270" ScaleX="1.4" ScaleY="1.4" />
             </Image.RenderTransform>
         </Image>
+        <Image x:Name="Screen0" Grid.Row="1" Width="Auto" Height="Auto" Source="{Binding Screen0}" RenderTransformOrigin="0.5,0.5" >
+            <Image.RenderTransform>
+                <CompositeTransform Rotation="270" ScaleX="1.4" ScaleY="1.4" />
+            </Image.RenderTransform>
+        </Image>
+
     </Grid>
 </Page>

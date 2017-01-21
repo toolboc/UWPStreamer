@@ -31,14 +31,8 @@ namespace UWPStreamer
         {
             this.InitializeComponent();
             ntr = new NTR();
-            ntr.PropertyChanged += Ntr_PropertyChanged;
+            DataContext = ntr;
             InitRemotePlay();
-        }
-
-        private void Ntr_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {            
-            var source = sender as NTR;
-            Screen1.Source = source.Image;
         }
 
         private async void InitRemotePlay()

@@ -21,29 +21,47 @@ namespace UWPStreamer.Services
     public class NTR : INotifyPropertyChanged
     {
         DatagramSocket socket = new DatagramSocket();
-        List<byte> screenBuffer = new List<byte>();
+        List<byte> priorityScreenBuffer = new List<byte>();
+        List<byte> secondaryScreenBuffer = new List<byte>();
 
-        private byte expectedFrame = 0;
-        private byte expectedPacket = 0;
+        private byte priorityExpectedFrame = 0;
+        private byte secondaryExpectedFrame = 0;
+
+        private byte priorityExpectedPacket = 0;
+        private byte secondaryExpectedPacket = 0;
 
         private int activePriorityMode = 1;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private ImageSource image;
+        //top
+        private ImageSource screen0;
 
-        public ImageSource Image
+        public ImageSource Screen0
         {
-            get { return image; }
+            get { return screen0; }
             set
             {
-                image = value;
+                screen0 = value;
+                OnPropertyChanged();
+            }
+        }
+
+        //bottom
+        private ImageSource screen1;
+
+        public ImageSource Screen1
+        {
+            get { return screen1; }
+            set
+            {
+                screen1 = value;
                 OnPropertyChanged();
             }
         }
 
 
-        public async Task<bool> InitRemoteplay(string ip, int priorityMode = 1, int priorityFactor = 5, int quality = 90, int qosValue = 20)
+        public async Task<bool> InitRemoteplay(string ip, int priorityMode = 1, int priorityFactor = 5, int quality = 75, int qosValue = 15)
         {
             activePriorityMode = priorityMode;
 
@@ -85,6 +103,7 @@ namespace UWPStreamer.Services
 
         private async void NTRRemoteplayReadJPEG(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs args)
         {
+
             Stream streamIn = args.GetDataStream().AsStreamForRead();
             BinaryReader reader = new BinaryReader(streamIn);
 
@@ -97,40 +116,72 @@ namespace UWPStreamer.Services
             //0x04: Packet number in JPEG stream
 
             var bytes = reader.ReadBytes(1448).ToList();
-            int currentFrame = bytes[0];
+            byte currentFrame = bytes[0];
             byte currentScreen = (byte)(bytes[1] & 0x0F);
             byte isLastPacket = (byte)((bytes[1] & 0xF0) >> 4);
             int currentPacket = bytes[3];
 
-            //init currentFrame 
-            if (expectedFrame == 0 && bytes[1] == activePriorityMode)
+            //init to currentFrame 
+            if (priorityExpectedFrame == 0 && currentScreen == activePriorityMode)
             {
-                expectedFrame = bytes[0];
+                priorityExpectedFrame = currentFrame;
+            }
+            else if (secondaryExpectedFrame == 0)
+            {
+                secondaryExpectedFrame = currentFrame;
             }
 
 
             //= BODY ==
             //0x05 to 0x0n: JPEG data
-            if (expectedFrame == currentFrame && expectedPacket == currentPacket &&  activePriorityMode == currentScreen)
+            if (priorityExpectedFrame == currentFrame && priorityExpectedPacket == currentPacket &&  activePriorityMode == currentScreen)
             {
-                screenBuffer.AddRange(bytes.GetRange(4, bytes.Count - 4));
-                expectedPacket++;
+                //priority screen
+                priorityScreenBuffer.AddRange(bytes.GetRange(4, bytes.Count - 4));
+                priorityExpectedPacket++;
+
+                if(await TryDisplayImage(priorityScreenBuffer, currentScreen))
+                {
+                    priorityExpectedFrame = 0;
+                    priorityExpectedPacket = 0;
+                }
             }
             else if (currentScreen == activePriorityMode)
             {
-                //Packet Dropped (unexpected packet or frame)
-                screenBuffer.Clear();
-                expectedFrame = 0;
-                expectedPacket = 0;
+                //Priority Packet Dropped (unexpected packet or frame)
+                priorityScreenBuffer.Clear();
+                priorityExpectedFrame = 0;
+                priorityExpectedPacket = 0;
+
+                return;
+            }
+            else if(secondaryExpectedPacket == currentPacket)
+            {
+                //secondary screen
+                secondaryScreenBuffer.AddRange(bytes.GetRange(4, bytes.Count - 4));
+                secondaryExpectedPacket++;
+
+                if(await TryDisplayImage(secondaryScreenBuffer, currentScreen))
+                {
+                    secondaryExpectedFrame = 0;
+                    secondaryExpectedPacket = 0;
+                }
 
                 return;
             }
             else
             {
-                //Packet Dropped (wrong screen)
-                return;
+                //Secondary Packet Dropped (unexpected packet or frame)
+                secondaryScreenBuffer.Clear();
+                secondaryExpectedFrame = 0;
+                secondaryExpectedPacket = 0;
             }
 
+
+        }
+
+        private async Task<bool> TryDisplayImage(List<byte> screenBuffer, int screen)
+        {
             //JPEG Stream ends with "FFD9" | FF = 255, D9 = 217
             if (screenBuffer.Count > 1 && screenBuffer.Last() == 217 && screenBuffer[screenBuffer.Count - 2] == 255)
             {
@@ -141,17 +192,22 @@ namespace UWPStreamer.Services
 
                         var stream = new InMemoryRandomAccessStream();
                         await stream.WriteAsync(screenBuffer.ToArray().AsBuffer());
-                        stream.Seek(0);
+                                        stream.Seek(0);
 
-                        bitmapImage.SetSource(stream);
-                        Image = bitmapImage;
-                    }
-                    );            
+                                        bitmapImage.SetSource(stream);
+
+                                        if(screen == 1)
+                                            Screen1 = bitmapImage;
+                                        else
+                                            Screen0 = bitmapImage;
+                                    }
+                                    );
 
                 screenBuffer.Clear();
-                expectedFrame = 0;
-                expectedPacket = 0;          
+                return true;
             }
+
+            return false;
         }
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
