@@ -7,24 +7,37 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid>
-        <Grid.Background>
-            <ImageBrush Stretch="Fill" ImageSource="Assets/bg.jpg"/>
-        </Grid.Background>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Image x:Name="Screen1" Width="Auto" Height="Auto" Source="{Binding Screen1}" RenderTransformOrigin="0.5,0.5"  >
+        <Image x:Name="Screen1" Width="Auto" Height="Auto" Source="{Binding Screen1}" RenderTransformOrigin="0.5,0.5" >
             <Image.RenderTransform>
                 <CompositeTransform Rotation="270" ScaleX="1.4" ScaleY="1.4" />
             </Image.RenderTransform>
         </Image>
-        <Image x:Name="Screen0" Grid.Row="1" Width="Auto" Height="Auto" Source="{Binding Screen0}" RenderTransformOrigin="0.5,0.5" >
+        <Image x:Name="Screen0" Grid.Row="1" Width="Auto" Height="Auto" Source="{Binding Screen0}" RenderTransformOrigin="0.5,0.5" Margin="0,0,0,20">
             <Image.RenderTransform>
                 <CompositeTransform Rotation="270" ScaleX="1.4" ScaleY="1.4" />
             </Image.RenderTransform>
         </Image>
+
+
+        <CommandBar x:Name="bottomCommandBar" x:FieldModifier="Protected" Grid.Row="2" VerticalAlignment="Bottom" IsOpen="False" ClosedDisplayMode="Minimal"  IsSticky="False">
+            <AppBarButton x:Name="layoutButton" Label="Layout"  Icon="VideoChat" Click="layoutButton_Click"  />
+            <AppBarToggleButton Label="Theme" Checked="ThemeToggleButton_Checked" Unchecked="ThemeToggleButton_Unchecked">
+                <AppBarToggleButton.Icon>
+                    <FontIcon Glyph="&#xE771;" />
+                </AppBarToggleButton.Icon>
+            </AppBarToggleButton>
+            <AppBarButton x:Name="backgroundButton" Label="Background"  Icon="Pictures"  Click="backgroundButton_Click"   />
+            <AppBarButton x:Name="settingButton" Label="Settings"  Icon="Setting" Click="settingButton_Click" />
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="Help" Icon="Help" Click="HelpButton_Click"/>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
 
     </Grid>
 </Page>

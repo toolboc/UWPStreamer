@@ -60,8 +60,22 @@ namespace UWPStreamer.Services
             }
         }
 
+        //This is the TCP package that needs to be sent to the N3DS.Under other cirumstances we'd want to change other bytes but to
+        //initialize remoteplay we only need to care about bytes 0x10, 0x11, 0x14 and 0x1A.
 
-        public async Task<bool> InitRemoteplay(string ip, int priorityMode = 1, int priorityFactor = 5, int quality = 75, int qosValue = 15)
+        //Bytes 0x10 and 0x14 contain, respectively, the priority factor and JPEG quality variables.All we need to do is to convert
+        //them from DEC to HEX et voilà, they work.
+
+
+        //Byte 0x11 is the priority mode byte. This is a weird one: internally, 1 is for top screen and 0 is for bottom screen.If
+        //you've used NTRClient, howerer, you've probably noticed that the boolean is actually FLIPPED, so 0 is top screen and
+        //1 is bottom screen.I don't know why cell9 thought this was a good idea so, as we're sending a RAW package here, I've
+        //decided to NOT flip the boolean.This way, there won't be any confusion regarding what this value actually means, and
+
+        //1 will always mean top screen and 0 bottom screen in this source code.
+        //Finally, byte 0x1A contains the QoS value.I have no idea why, but NTR expects it to be double its intended value.
+
+        public async Task<bool> InitRemoteplay(string ip, int priorityMode = 1, int priorityFactor = 1, int quality = 75, int qosValue = 15)
         {
             activePriorityMode = priorityMode;
 

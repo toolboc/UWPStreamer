@@ -1,0 +1,34 @@
+﻿<ContentDialog
+    x:Class="UWPStreamer.SettingsDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPStreamer"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Settings"
+    PrimaryButtonText="connect"  
+    SecondaryButtonText="cancel"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+
+    <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <TextBox Name="ipAdressTextBox" Header="IP Address" />
+        <ComboBox x:Name="screenPriorityComboBox" Header="Screen Priority" SelectedValue="Single">
+            <x:String>Top Screen</x:String>
+            <x:String>Bottom Screen</x:String>
+        </ComboBox>
+
+        <TextBox Name="priorityFactorTextBox" Header="Priority Factor" />
+        <TextBox Name="imageQualityTextBox" Header="Image Quality" />
+        <TextBox Name="qosValueTextBox" Header="QoS Value" />
+
+        <CheckBox Name="autoConnectCheckBox" Content="Auto Connect" IsChecked="False" />
+        <CheckBox Name="saveSettingsCheckBox" Content="Save settings" IsChecked="True" />
+
+        <TextBlock x:Name="errorTextBlock" />
+
+        <!-- Content body -->
+        <TextBlock Text="Enable NTR Debugger then connect"  TextWrapping="Wrap" />
+    </StackPanel>
+</ContentDialog>
