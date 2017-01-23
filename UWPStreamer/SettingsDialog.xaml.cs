@@ -49,7 +49,7 @@ namespace UWPStreamer
             if (!localSettings.Values.ContainsKey("qosValue"))
                 localSettings.Values["qosValue"] = 15;
             if (!localSettings.Values.ContainsKey("autoConnect"))
-                localSettings.Values["autoConnect"] = false;
+                localSettings.Values["autoConnect"] = true;
 
             ipAdressTextBox.Text = (string)localSettings.Values["ip"];
             screenPriorityComboBox.SelectedIndex = 1 - (int)localSettings.Values["priorityMode"];
