@@ -70,6 +70,8 @@ namespace UWPStreamer
 
         private async void InitRemotePlay()
         {
+            ProgressRing.IsActive = true;
+
             var ip = localSettings.Values["ip"].ToString();
             var priorityMode = Int32.Parse(localSettings.Values["priorityMode"].ToString());
             var priorityFactor = Int32.Parse(localSettings.Values["priorityFactor"].ToString());
@@ -83,6 +85,7 @@ namespace UWPStreamer
             catch(Exception e)
             {
                 var messageDialog = new Windows.UI.Popups.MessageDialog("Unable to connect to NTR Debugger on: \n" +  ip, "Connection Error");
+                ProgressRing.IsActive = false;
                 await messageDialog.ShowAsync();
                 return;
             }
@@ -96,6 +99,8 @@ namespace UWPStreamer
                 var messageDialog = new Windows.UI.Popups.MessageDialog("Error while streaming to remote 3DS on: \n" + ip, "Stream Interuppted");
                 await messageDialog.ShowAsync();
             }
+
+            ProgressRing.IsActive = false;
         }
 
         private void ThemeToggleButton_Checked(object sender, RoutedEventArgs e)

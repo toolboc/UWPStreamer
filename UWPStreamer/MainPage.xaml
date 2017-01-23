@@ -45,6 +45,7 @@
                 <CompositeTransform Rotation="270" ScaleX="1.4" ScaleY="1.4" />
             </Image.RenderTransform>
         </Image>
+            <ProgressRing x:Name="ProgressRing" IsActive="{Binding IsBusy}" Grid.RowSpan="2"/>
         </Grid>
 
         <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
