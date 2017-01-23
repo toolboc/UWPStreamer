@@ -34,7 +34,9 @@ namespace UWPStreamer.Services
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        //top
+
+
+        //bottom
         private ImageSource screen0;
 
         public ImageSource Screen0
@@ -47,7 +49,7 @@ namespace UWPStreamer.Services
             }
         }
 
-        //bottom
+        //top
         private ImageSource screen1;
 
         public ImageSource Screen1
@@ -58,6 +60,11 @@ namespace UWPStreamer.Services
                 screen1 = value;
                 OnPropertyChanged();
             }
+        }
+
+        public NTR()
+        {
+            //Screen1 = new BitmapImage(new Uri("ms-appx:///Assets/placeholder.png"));
         }
 
         //This is the TCP package that needs to be sent to the N3DS.Under other cirumstances we'd want to change other bytes but to
