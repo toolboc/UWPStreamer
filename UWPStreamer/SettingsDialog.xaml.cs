@@ -52,7 +52,7 @@ namespace UWPStreamer
                 localSettings.Values["autoConnect"] = false;
 
             ipAdressTextBox.Text = (string)localSettings.Values["ip"];
-            screenPriorityComboBox.SelectedIndex = (int)localSettings.Values["priorityMode"];
+            screenPriorityComboBox.SelectedIndex = 1 - (int)localSettings.Values["priorityMode"];
             priorityFactorTextBox.Text = localSettings.Values["priorityFactor"].ToString();
             imageQualityTextBox.Text = localSettings.Values["quality"].ToString();
             qosValueTextBox.Text = localSettings.Values["qosValue"].ToString();
