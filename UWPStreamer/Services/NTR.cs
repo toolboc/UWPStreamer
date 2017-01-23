@@ -20,7 +20,7 @@ namespace UWPStreamer.Services
 {
     public class NTR : INotifyPropertyChanged
     {
-        DatagramSocket socket = new DatagramSocket();
+        DatagramSocket socket;
         List<byte> priorityScreenBuffer = new List<byte>();
         List<byte> secondaryScreenBuffer = new List<byte>();
 
@@ -110,6 +110,10 @@ namespace UWPStreamer.Services
 
         public async void NTRRemoteplayConnect()
         {
+            if (socket != null)
+                socket.Dispose();
+
+            socket = new DatagramSocket();
             string serverPort = "8001";
             socket.MessageReceived += NTRRemoteplayReadJPEG;
             await socket.BindServiceNameAsync(serverPort);
@@ -130,6 +134,10 @@ namespace UWPStreamer.Services
             //0x04: Packet number in JPEG stream
 
             var bytes = reader.ReadBytes(1448).ToList();
+
+            if (bytes.Count < 4)
+                return;
+
             byte currentFrame = bytes[0];
             byte currentScreen = (byte)(bytes[1] & 0x0F);
             byte isLastPacket = (byte)((bytes[1] & 0xF0) >> 4);
