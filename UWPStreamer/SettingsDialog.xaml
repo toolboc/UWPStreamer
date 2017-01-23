@@ -28,7 +28,5 @@
 
         <TextBlock x:Name="errorTextBlock" />
 
-        <!-- Content body -->
-        <TextBlock Text="Enable NTR Debugger then connect"  TextWrapping="Wrap" />
     </StackPanel>
 </ContentDialog>

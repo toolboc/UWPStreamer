@@ -30,6 +30,8 @@ namespace UWPStreamer
     {
         ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
         NTR ntr;
+        int visualState = 0;
+        int rotation = 0;
 
         public MainPage()
         {
@@ -117,14 +119,32 @@ namespace UWPStreamer
             ShowSettings();
         }
 
-        private void layoutButton_Click(object sender, RoutedEventArgs e)
+        private void displayButton_Click(object sender, RoutedEventArgs e)
         {
+            visualState++;
+            switch(visualState)
+            {
+                case 0:
+                    VisualStateManager.GoToState(this, "BothScreens", false);
+                    break;
+                case 1:
+                    VisualStateManager.GoToState(this, "TopScreenOnly", false);
+                    break;
+                case 2:
+                    VisualStateManager.GoToState(this, "BottomScreenOnly", false);
+                    visualState = -1;
+                    break;
 
+            }
         }
 
-        private void backgroundButton_Click(object sender, RoutedEventArgs e)
+        private void rotateButton_Click(object sender, RoutedEventArgs e)
         {
-
+            rotation = (rotation + 90) % 360;
+            
+            var c = new CompositeTransform();
+            c.Rotation = rotation;
+            screensGrid.RenderTransform = c;
         }
     }
 }

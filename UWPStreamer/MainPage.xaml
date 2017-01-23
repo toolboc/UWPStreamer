@@ -10,9 +10,31 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="BothScreens"/>
+                <VisualState x:Name="TopScreenOnly">
+                    <VisualState.Setters>
+                        <Setter Target="Screen0.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="Screen1.(Grid.RowSpan)" Value="2"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="BottomScreenOnly">
+                    <VisualState.Setters>
+                        <Setter Target="Screen1.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="Screen0.(Grid.Row)" Value="0"/>
+                        <Setter Target="Screen0.(Grid.RowSpan)" Value="2"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid x:Name="screensGrid" RenderTransformOrigin="0.5,0.5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
         <Image x:Name="Screen1" Width="Auto" Height="Auto" Source="{Binding Screen1}" RenderTransformOrigin="0.5,0.5" >
             <Image.RenderTransform>
                 <CompositeTransform Rotation="270" ScaleX="1.4" ScaleY="1.4" />
@@ -23,21 +45,23 @@
                 <CompositeTransform Rotation="270" ScaleX="1.4" ScaleY="1.4" />
             </Image.RenderTransform>
         </Image>
+        </Grid>
 
-
-        <CommandBar x:Name="bottomCommandBar" x:FieldModifier="Protected" Grid.Row="2" VerticalAlignment="Bottom" IsOpen="False" ClosedDisplayMode="Minimal"  IsSticky="False">
-            <AppBarButton x:Name="layoutButton" Label="Layout"  Icon="VideoChat" Click="layoutButton_Click"  />
-            <AppBarToggleButton Label="Theme" Checked="ThemeToggleButton_Checked" Unchecked="ThemeToggleButton_Unchecked">
-                <AppBarToggleButton.Icon>
-                    <FontIcon Glyph="&#xE771;" />
-                </AppBarToggleButton.Icon>
-            </AppBarToggleButton>
-            <AppBarButton x:Name="backgroundButton" Label="Background"  Icon="Pictures"  Click="backgroundButton_Click"   />
+        <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
+            <CommandBar x:Name="bottomCommandBar" x:FieldModifier="Protected" IsOpen="False" ClosedDisplayMode="Minimal"  IsSticky="False">
+                <AppBarToggleButton Label="Theme" Checked="ThemeToggleButton_Checked" Unchecked="ThemeToggleButton_Unchecked">
+                    <AppBarToggleButton.Icon>
+                        <FontIcon Glyph="&#xE771;" />
+                    </AppBarToggleButton.Icon>
+                </AppBarToggleButton>
+                <AppBarButton x:Name="displayButton" Label="Display"  Icon="FullScreen"  Click="displayButton_Click"  />
+                <AppBarButton x:Name="rotateButton" Label="Rotate"  Icon="Rotate"  Click="rotateButton_Click"   />
             <AppBarButton x:Name="settingButton" Label="Settings"  Icon="Setting" Click="settingButton_Click" />
             <CommandBar.SecondaryCommands>
                 <AppBarButton Label="Help" Icon="Help" Click="HelpButton_Click"/>
             </CommandBar.SecondaryCommands>
         </CommandBar>
+        </StackPanel>
+        </Grid>
 
-    </Grid>
 </Page>
