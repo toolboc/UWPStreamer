@@ -63,6 +63,32 @@
             </CommandBar.SecondaryCommands>
         </CommandBar>
         </StackPanel>
-        </Grid>
+
+        <Popup x:Name="helpPopup" IsOpen="False" IsLightDismissEnabled="True">
+            <Popup.ChildTransitions>
+                <TransitionCollection>
+                    <PaneThemeTransition Edge="Right" />
+                </TransitionCollection>
+            </Popup.ChildTransitions>
+            <Border BorderBrush="{StaticResource SystemControlForegroundAccentBrush}" BorderThickness="1" Background="{StaticResource SystemControlBackgroundChromeMediumLowBrush}" x:Name="rootPopupBorder">
+                <Grid Margin="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Help"  OpticalMarginAlignment="TrimSideBearings" FontSize="24" Margin="0,0,0,10" />
+                    <RichTextBlock Grid.Row="1" >
+                        <Paragraph>UWPStreamer is an open-source NTR CFW streaming client targeting UWP (Xbox One, Hololens, Windows 10, and Windows Phone 10)
+                        <LineBreak/>
+                        <LineBreak/>
+                            You may find instructions, source code, and report issues at the
+                            <Hyperlink NavigateUri="https://github.com/toolboc/UWPStreamer">Project Homepage</Hyperlink>
+                        </Paragraph>
+                    </RichTextBlock>
+                </Grid>
+            </Border>
+        </Popup>
+
+    </Grid>
 
 </Page>

@@ -115,8 +115,19 @@ namespace UWPStreamer
 
         private void HelpButton_Click(object sender, RoutedEventArgs e)
         {
-            //ShowHelp();
+            ShowHelp();
             bottomCommandBar.IsOpen = false;
+        }
+
+        private void ShowHelp()
+        {
+            if (!helpPopup.IsOpen)
+            {
+                rootPopupBorder.Width = 346;
+                rootPopupBorder.Height = this.ActualHeight;
+                helpPopup.HorizontalOffset = Window.Current.Bounds.Width - 346;
+                helpPopup.IsOpen = true;
+            }
         }
 
         private async void settingButton_Click(object sender, RoutedEventArgs e)
