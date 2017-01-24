@@ -81,7 +81,7 @@
                         <Paragraph>UWPStreamer is an open-source NTR CFW streaming client targeting UWP (Xbox One, Hololens, Windows 10, and Windows Phone 10)
                         <LineBreak/>
                         <LineBreak/>
-                            You may find instructions, source code, and report issues at the
+                            You may find instructions, view source code, and report issues at the
                             <Hyperlink NavigateUri="https://github.com/toolboc/UWPStreamer">Project Homepage</Hyperlink>
                         </Paragraph>
                     </RichTextBlock>

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="WINCODERLLC.UWPStreamer" Publisher="CN=51304BDA-DDC5-4B15-8732-B52D6C6D6455" Version="1.1.1.0" />
+  <Identity Name="WINCODERLLC.UWPStreamer" Publisher="CN=51304BDA-DDC5-4B15-8732-B52D6C6D6455" Version="1.1.2.0" />
   <mp:PhoneIdentity PhoneProductId="467885ba-79f9-4bbd-84b1-5a6bd8cdbeb7" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>UWPStreamer</DisplayName>
