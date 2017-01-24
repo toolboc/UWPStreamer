@@ -12,11 +12,15 @@ An NTR CFW streaming client targeting [UWP](https://msdn.microsoft.com/en-us/win
 address. 
 3. Launch UWPStreamer, and insert your IP address in the settings screen, select options and click "Connect"
 
+**Demo:**
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/HVuQsCvUj_o/2.jpg)](https://www.youtube.com/watch?v=HVuQsCvUj_o)
+
 ## Avaialble Platforms ##
 
 **Hololens**
 
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/HVuQsCvUj_o/2.jpg)](https://www.youtube.com/watch?v=HVuQsCvUj_o)
+![Hololens](https://raw.githubusercontent.com/toolboc/UWPStreamer/master/UWPStreamer/Assets/Screenshots/Hololens/1.png)
 
 **XboxOne**
 
