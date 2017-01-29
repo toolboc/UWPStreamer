@@ -20,16 +20,16 @@ address.
 
 **Hololens**
 
-![Hololens](https://raw.githubusercontent.com/toolboc/UWPStreamer/master/UWPStreamer/Assets/Screenshots/Hololens/1.png)
+<img src="/UWPStreamer/Assets/Screenshots/Hololens/1.png" width="500">
 
 **XboxOne**
 
-![XboxOne](https://raw.githubusercontent.com/toolboc/UWPStreamer/master/UWPStreamer/Assets/Screenshots/XboxOne/1.png)
+<img src="/UWPStreamer/Assets/Screenshots/XboxOne/1.png" width="500">
 
 **Windows Mobile**
 
-![Mobile](https://raw.githubusercontent.com/toolboc/UWPStreamer/master/UWPStreamer/Assets/Screenshots/Mobile/1.png)
+<img src="/UWPStreamer/Assets/Screenshots/Mobile/1.png" height="300">
 
 **Windows 10 Desktop**
 
-![Desktop](https://raw.githubusercontent.com/toolboc/UWPStreamer/master/UWPStreamer/Assets/Screenshots/Desktop/1.png)
+<img src="/UWPStreamer/Assets/Screenshots/Desktop/1.png" width="500">
