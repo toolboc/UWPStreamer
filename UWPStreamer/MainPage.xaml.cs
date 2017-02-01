@@ -43,9 +43,11 @@ namespace UWPStreamer
 
         private void Init()
         {
+            bool autoConnect = false;
+
             try
             {
-                var autoConnect = (bool)localSettings.Values["autoConnect"];
+                autoConnect = (bool)localSettings.Values["autoConnect"];
             }
             catch
             {
@@ -53,7 +55,7 @@ namespace UWPStreamer
                 return;
             }
 
-            if ((bool)localSettings.Values["autoConnect"])
+            if (autoConnect)
                 InitRemotePlay();
             else
                 ShowSettings();
