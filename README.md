@@ -5,7 +5,7 @@ An NTR CFW streaming client targeting [UWP](https://msdn.microsoft.com/en-us/win
 
 ## Available in the Windows Store ##
 
-![StoreLink](http://i.imgur.com/C6buqwe.png)
+[![StoreLink](http://i.imgur.com/C6buqwe.png)](https://www.microsoft.com/en-us/store/p/uwpstreamer/9nd66p3vdnxt)
 
 [Download Link](https://www.microsoft.com/en-us/store/p/uwpstreamer/9nd66p3vdnxt)
 
