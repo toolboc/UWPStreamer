@@ -3,6 +3,11 @@ An NTR CFW streaming client targeting [UWP](https://msdn.microsoft.com/en-us/win
 
 ![Demo](http://i.imgur.com/GTRoCJv.png)
 
+## Available in the Windows Store ##
+
+![StoreLink](http://i.imgur.com/C6buqwe.png)
+
+[Download Link](https://www.microsoft.com/en-us/store/p/uwpstreamer/9nd66p3vdnxt)
 
 ## Instructions ##
 *Assumes you have installed NTR CFW on a New Nitnendo 3DS and you know how to get it up and running.*
