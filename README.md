@@ -9,6 +9,13 @@ An NTR CFW streaming client targeting [UWP](https://msdn.microsoft.com/en-us/win
 
 [Download Link](https://www.microsoft.com/en-us/store/p/uwpstreamer/9nd66p3vdnxt)
 
+## Features ##
+* Video Streaming - Stream 3DS screens to remote device
+* Input Redirection - Control N3DS with Xbox Gamepad, Keyboard, and other input devices
+* Windows Game Bar Support - Allows for integrated features on Windows 10 Desktop including Screen Capture and DVR
+
+<img src="/UWPStreamer/Assets/Gamebar.PNG">
+
 ## Instructions for Video Streaming ##
 *Assumes you have installed NTR CFW on a New Nitnendo 3DS and you know how to get it up and running.*
  
@@ -27,24 +34,16 @@ address.
 <img src="/UWPStreamer/Assets/NTRInputRedirect.PNG">
 3. Select the "hide" option in the UWPStremer menu to block further input to the menus
 
-**Demo:**
+## Usage and Capture Demos ##
 
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/HVuQsCvUj_o/2.jpg)](https://www.youtube.com/watch?v=HVuQsCvUj_o)
+[![Hololens Demo](https://img.youtube.com/vi/HVuQsCvUj_o/2.jpg)](https://www.youtube.com/watch?v=HVuQsCvUj_o)
 
-## Avaialble Platforms ##
+[![Video Capture Example](https://img.youtube.com/vi/9HNBWVT911o/2.jpg)](https://www.youtube.com/watch?v=9HNBWVT911o)
 
-**Hololens**
+## User Screenshots ##
 
-<img src="/UWPStreamer/Assets/Screenshots/Hololens/1.png" width="500">
+<img src="http://i.imgur.com/L4Idp0M.jpg" width="500">
 
-**XboxOne**
+<img src="http://i.imgur.com/YSiSWjr.jpg" width="500">
 
-<img src="/UWPStreamer/Assets/Screenshots/XboxOne/1.png" width="500">
-
-**Windows Mobile**
-
-<img src="/UWPStreamer/Assets/Screenshots/Mobile/1.png" height="300">
-
-**Windows 10 Desktop**
-
-<img src="/UWPStreamer/Assets/Screenshots/Desktop/1.png" width="500">
+<img src="http://i.imgur.com/NF5lybH.png" width="500">
