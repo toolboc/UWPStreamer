@@ -175,7 +175,7 @@ namespace UWPStreamer
 
         private void Hide_Click(object sender, RoutedEventArgs e)
         {
-            bottomCommandBar.ClosedDisplayMode = AppBarClosedDisplayMode.Hidden;
+            bottomCommandBar.Visibility = Visibility.Collapsed;
         }
     }
 }
