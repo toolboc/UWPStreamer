@@ -1,8 +1,10 @@
-﻿using System;
+﻿using InputRedirectionNTR;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UWPStreamer.Services;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -22,12 +24,20 @@ namespace UWPStreamer
     /// </summary>
     sealed partial class App : Application
     {
+
+        public static NTRClient ntrClient;
+        public static ScriptHelper scriptHelper;
+        public static Boolean Connected = false;
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
         public App()
         {
+            ntrClient = new NTRClient();
+            scriptHelper = new ScriptHelper();
+
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }

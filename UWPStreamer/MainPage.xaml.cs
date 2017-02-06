@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InputRedirectionNTR;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,6 +9,7 @@ using UWPStreamer.Services;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -38,7 +40,7 @@ namespace UWPStreamer
             this.InitializeComponent();
             ntr = new NTR();
             DataContext = ntr;
-            Init();
+            Init();                    
         }
 
         private void Init()
@@ -100,6 +102,12 @@ namespace UWPStreamer
             {
                 var messageDialog = new Windows.UI.Popups.MessageDialog("Error while streaming to remote 3DS on: \n" + ip, "Stream Interuppted");
                 await messageDialog.ShowAsync();
+            }
+            finally
+            {
+                var nTRInputRedirection = new NTRInputRedirection();
+                nTRInputRedirection.CheckConnection();
+                Task.Run(()=> { while (true) nTRInputRedirection.ReadMain(); });
             }
 
             ProgressRing.IsActive = false;
@@ -163,6 +171,11 @@ namespace UWPStreamer
             var c = new CompositeTransform();
             c.Rotation = rotation;
             screensGrid.RenderTransform = c;
+        }
+
+        private void Hide_Click(object sender, RoutedEventArgs e)
+        {
+            bottomCommandBar.ClosedDisplayMode = AppBarClosedDisplayMode.Hidden;
         }
     }
 }
