@@ -1,1 +1,1 @@
-C:\Github\UWPStreamer\UWPStreamer\AppPackages\UWPStreamer_1.1.9.0\UWPStreamer_1.1.9.0_x86_arm.appxbundle
+C:\Github\UWPStreamer\UWPStreamer\AppPackages\UWPStreamer_1.1.12.0\UWPStreamer_1.1.12.0_x86_x64_arm.appxbundle
