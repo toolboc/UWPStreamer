@@ -31,8 +31,13 @@ address.
 
 1. Ensure that you have installed the latest version of [InputRedirectionNTR](https://github.com/Kazo/InputRedirection/releases/tag/NTR-build)
 2. Start "InputProc NTR Stary" on your 3DS after launching NTR 
-<img src="/UWPStreamer/Assets/NTRInputRedirect.PNG">
-3. Select the "hide" option in the UWPStremer menu to block further input to the menus
+<img src="/UWPStreamer/Assets/NTRInputRedirect.PNG"> 
+3.Connect gamepad to your Win10 Device using USB, Bluetooth, or dongle
+
+## Controls ##
+* To hide bottom menu use Right-Trigger or Right Mouse-Click
+* Toggle controller input with Left-Trigger                           
+* On Desktop push Xbox button or Win+G to launch Game Bar for DVR / Screenshots 
 
 ## Usage and Capture Demos ##
 

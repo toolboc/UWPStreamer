@@ -92,6 +92,9 @@
                             <LineBreak/>
                             <LineBreak/>
                             Toggle controller input with Left-Trigger
+                            <LineBreak/>
+                            <LineBreak/>
+                            On Desktop push Xbox button or Win+G to launch Game Bar for DVR / Screenshots 
                         </Paragraph>
                     </RichTextBlock>
                 </Grid>
