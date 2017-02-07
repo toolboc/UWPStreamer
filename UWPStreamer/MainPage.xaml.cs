@@ -43,6 +43,8 @@ namespace UWPStreamer
 
         public MainPage()
         {
+            ntrInputRedirection = new NTRInputRedirection();
+
             Window.Current.CoreWindow.KeyUp += CoreWindow_KeyUp;
             Window.Current.CoreWindow.PointerReleased += CoreWindow_PointerReleased;
             this.InitializeComponent();
@@ -83,7 +85,7 @@ namespace UWPStreamer
 
             if (args.VirtualKey == VirtualKey.GamepadLeftTrigger)
             {
-                ntrInputRedirection.useGamePad = ntrInputRedirection.useGamePad ? false : true;
+                //ntrInputRedirection.useGamePad = ntrInputRedirection.useGamePad ? false : true;
             }
         }
 
@@ -162,7 +164,6 @@ namespace UWPStreamer
             {
                 tokenSource = new CancellationTokenSource();
                 ct = tokenSource.Token;
-                ntrInputRedirection = new NTRInputRedirection();
                 ntrInputRedirectionTask = new Task(() => { while (true) ntrInputRedirection.ReadMain(); }, ct);
 
                 ntrInputRedirection.CheckConnection();
@@ -233,6 +234,33 @@ namespace UWPStreamer
             var c = new CompositeTransform();
             c.Rotation = rotation;
             screensGrid.RenderTransform = c;
+        }
+
+        private void bottomCommandBar_GotFocus(object sender, RoutedEventArgs e)
+        {
+            ntrInputRedirection.useGamePad = false;
+        }
+
+        private void bottomCommandBar_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if(!bottomCommandBar.IsOpen && !helpPopup.IsOpen)
+                ntrInputRedirection.useGamePad = true;
+        }
+
+        private void bottomCommandBar_Opening(object sender, object e)
+        {
+            ntrInputRedirection.useGamePad = false;
+        }
+
+        private void bottomCommandBar_Closed(object sender, object e)
+        {
+            if(!helpPopup.IsOpen)
+                ntrInputRedirection.useGamePad = true;
+        }
+
+        private void helpPopup_Opened(object sender, object e)
+        {
+            ntrInputRedirection.useGamePad = false;
         }
     }
 }

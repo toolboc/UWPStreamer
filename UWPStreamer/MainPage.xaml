@@ -49,7 +49,7 @@
         </Grid>
 
         <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
-            <CommandBar x:Name="bottomCommandBar" x:FieldModifier="Protected" IsOpen="False" ClosedDisplayMode="Minimal"  IsSticky="False">
+            <CommandBar x:Name="bottomCommandBar" x:FieldModifier="Protected" IsOpen="False" ClosedDisplayMode="Minimal"  IsSticky="False" GotFocus="bottomCommandBar_GotFocus" LostFocus="bottomCommandBar_LostFocus" Opening="bottomCommandBar_Opening" Closed="bottomCommandBar_Closed" >
                 <AppBarToggleButton Label="Theme" Checked="ThemeToggleButton_Checked" Unchecked="ThemeToggleButton_Unchecked">
                     <AppBarToggleButton.Icon>
                         <FontIcon Glyph="&#xE771;" />
@@ -64,7 +64,7 @@
         </CommandBar>
         </StackPanel>
 
-        <Popup x:Name="helpPopup" IsOpen="False" IsLightDismissEnabled="True">
+        <Popup x:Name="helpPopup" IsOpen="False" IsLightDismissEnabled="True" Opened="helpPopup_Opened" >
             <Popup.ChildTransitions>
                 <TransitionCollection>
                     <PaneThemeTransition Edge="Right" />
