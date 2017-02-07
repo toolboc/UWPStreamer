@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using System.Threading.Tasks;
 using UWPStreamer.Services;
 using Windows.Foundation;
@@ -35,16 +36,56 @@ namespace UWPStreamer
         int visualState = 0;
         int rotation = 0;
 
+        CancellationTokenSource tokenSource;
+        CancellationToken ct;
+        NTRInputRedirection ntrInputRedirection;
+        Task ntrInputRedirectionTask;
+
         public MainPage()
         {
+            Window.Current.CoreWindow.KeyUp += CoreWindow_KeyUp;
+            Window.Current.CoreWindow.PointerReleased += CoreWindow_PointerReleased;
             this.InitializeComponent();
+
             ntr = new NTR();
             DataContext = ntr;
             Init();                    
         }
 
+        private void CoreWindow_PointerReleased(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.PointerEventArgs args)
+        {
+            if(args.CurrentPoint.Properties.PointerUpdateKind == Windows.UI.Input.PointerUpdateKind.RightButtonReleased)
+            {
+                if (bottomCommandBar.ClosedDisplayMode == AppBarClosedDisplayMode.Minimal)
+                {
+                    bottomCommandBar.ClosedDisplayMode = AppBarClosedDisplayMode.Hidden;
+                }
+                else
+                    bottomCommandBar.ClosedDisplayMode = AppBarClosedDisplayMode.Minimal;
+            }
+        }
+
+        private void CoreWindow_KeyUp(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
+        {
+            if (args.VirtualKey == VirtualKey.GamepadRightTrigger)
+            {
+                if (bottomCommandBar.ClosedDisplayMode == AppBarClosedDisplayMode.Minimal)
+                {
+                    bottomCommandBar.ClosedDisplayMode = AppBarClosedDisplayMode.Hidden;
+                }
+                else
+                    bottomCommandBar.ClosedDisplayMode = AppBarClosedDisplayMode.Minimal;
+            }
+
+            if (args.VirtualKey == VirtualKey.GamepadLeftTrigger)
+            {
+                ntrInputRedirection.useGamePad = ntrInputRedirection.useGamePad ? false : true;
+            }
+        }
+
         private void Init()
         {
+
             bool autoConnect = false;
 
             try
@@ -105,12 +146,29 @@ namespace UWPStreamer
             }
             finally
             {
-                var nTRInputRedirection = new NTRInputRedirection();
-                nTRInputRedirection.CheckConnection();
-                Task.Run(()=> { while (true) nTRInputRedirection.ReadMain(); });
+                startNTRinputRedirection();
             }
 
             ProgressRing.IsActive = false;
+        }
+
+        private void startNTRinputRedirection()
+        {
+            try
+            {
+                tokenSource = new CancellationTokenSource();
+                ct = tokenSource.Token;
+                ntrInputRedirection = new NTRInputRedirection();
+                ntrInputRedirectionTask = new Task(() => { while (true) ntrInputRedirection.ReadMain(); }, ct);
+
+                ntrInputRedirection.CheckConnection();
+                ntrInputRedirectionTask.Start();
+            }
+            catch(Exception e)
+            {
+                var ip = localSettings.Values["ip"].ToString();
+                var messageDialog = new Windows.UI.Popups.MessageDialog("Error Initiating NTR Input Redirection on: \n" + ip, "Input Redirection Error");
+            }
         }
 
         private void ThemeToggleButton_Checked(object sender, RoutedEventArgs e)
@@ -171,11 +229,6 @@ namespace UWPStreamer
             var c = new CompositeTransform();
             c.Rotation = rotation;
             screensGrid.RenderTransform = c;
-        }
-
-        private void Hide_Click(object sender, RoutedEventArgs e)
-        {
-            bottomCommandBar.Visibility = Visibility.Collapsed;
         }
     }
 }

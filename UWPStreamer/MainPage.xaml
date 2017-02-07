@@ -59,8 +59,7 @@
                 <AppBarButton x:Name="rotateButton" Label="Rotate"  Icon="Rotate"  Click="rotateButton_Click"   />
             <AppBarButton x:Name="settingButton" Label="Settings"  Icon="Setting" Click="settingButton_Click" />
             <CommandBar.SecondaryCommands>
-                <AppBarButton Label="Help" Icon="Help" Click="HelpButton_Click"/>
-                    <AppBarButton x:Name="Hide" Label="Hide" Icon="HideBcc" Click="Hide_Click"/>
+                    <AppBarButton Label="Help" Icon="Help" Click="HelpButton_Click"/>
                 </CommandBar.SecondaryCommands>
         </CommandBar>
         </StackPanel>
@@ -80,10 +79,19 @@
                     <TextBlock Text="Help"  OpticalMarginAlignment="TrimSideBearings" FontSize="24" Margin="0,0,0,10" />
                     <RichTextBlock Grid.Row="1" >
                         <Paragraph>UWPStreamer is an open-source NTR CFW streaming client targeting UWP (Xbox One, Hololens, Windows 10, and Windows Phone 10)
-                        <LineBreak/>
-                        <LineBreak/>
+                            <LineBreak/>
+                            <LineBreak/>
+                            Now with support for NTR Input Redirection!
+                            <LineBreak/>
+                            <LineBreak/>
                             You may find instructions, view source code, and report issues at the
                             <Hyperlink NavigateUri="https://github.com/toolboc/UWPStreamer">Project Homepage</Hyperlink>
+                            <LineBreak/>
+                            <LineBreak/>
+                            To hide bottom menu use Right-Trigger or Right Mouse-Click
+                            <LineBreak/>
+                            <LineBreak/>
+                            Toggle controller input with Left-Trigger
                         </Paragraph>
                     </RichTextBlock>
                 </Grid>

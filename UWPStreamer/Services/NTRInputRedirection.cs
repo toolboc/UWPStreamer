@@ -36,7 +36,7 @@ namespace InputRedirectionNTR
         GamePadState gamePadState;
         uint KeyIndex;
         uint OldButton;
-        bool useGamePad = true;
+        public bool useGamePad = true;
 
         public NTRInputRedirection()
         {
