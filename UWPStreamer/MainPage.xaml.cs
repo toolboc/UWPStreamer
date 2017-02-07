@@ -43,10 +43,9 @@ namespace UWPStreamer
 
         public MainPage()
         {
-            ntrInputRedirection = new NTRInputRedirection();
-
             Window.Current.CoreWindow.KeyUp += CoreWindow_KeyUp;
             Window.Current.CoreWindow.PointerReleased += CoreWindow_PointerReleased;
+
             this.InitializeComponent();
 
             ntr = new NTR();
@@ -85,7 +84,7 @@ namespace UWPStreamer
 
             if (args.VirtualKey == VirtualKey.GamepadLeftTrigger)
             {
-                //ntrInputRedirection.useGamePad = ntrInputRedirection.useGamePad ? false : true;
+                ntrInputRedirection.useGamePad = ntrInputRedirection.useGamePad ? false : true;
             }
         }
 
@@ -164,6 +163,14 @@ namespace UWPStreamer
             {
                 tokenSource = new CancellationTokenSource();
                 ct = tokenSource.Token;
+                ntrInputRedirection = new NTRInputRedirection();
+
+                bottomCommandBar.GotFocus += bottomCommandBar_GotFocus;
+                bottomCommandBar.LostFocus += bottomCommandBar_LostFocus;
+                bottomCommandBar.Opening += bottomCommandBar_Opening;
+                bottomCommandBar.Closed += bottomCommandBar_Closed;
+                helpPopup.Opened += helpPopup_Opened;
+
                 ntrInputRedirectionTask = new Task(() => { while (true) ntrInputRedirection.ReadMain(); }, ct);
 
                 ntrInputRedirection.CheckConnection();
