@@ -67,14 +67,18 @@ namespace UWPStreamer
 
         private void CoreWindow_KeyUp(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {
-            if (args.VirtualKey == VirtualKey.GamepadRightTrigger)
+            if (args.VirtualKey == VirtualKey.GamepadRightTrigger && !bottomCommandBar.IsOpen)
             {
                 if (bottomCommandBar.ClosedDisplayMode == AppBarClosedDisplayMode.Minimal)
                 {
+                    bottomCommandBar.IsEnabled = false;
                     bottomCommandBar.ClosedDisplayMode = AppBarClosedDisplayMode.Hidden;
                 }
                 else
+                {
+                    bottomCommandBar.IsEnabled = true;
                     bottomCommandBar.ClosedDisplayMode = AppBarClosedDisplayMode.Minimal;
+                }
             }
 
             if (args.VirtualKey == VirtualKey.GamepadLeftTrigger)
