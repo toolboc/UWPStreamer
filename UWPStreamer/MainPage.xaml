@@ -50,12 +50,9 @@
 
         <StackPanel Grid.Row="1" VerticalAlignment="Bottom">
             <CommandBar x:Name="bottomCommandBar" x:FieldModifier="Protected" IsOpen="False" ClosedDisplayMode="Minimal"  IsSticky="False" >
-                <AppBarToggleButton Label="Theme" Checked="ThemeToggleButton_Checked" Unchecked="ThemeToggleButton_Unchecked">
-                    <AppBarToggleButton.Icon>
-                        <FontIcon Glyph="&#xE771;" />
-                    </AppBarToggleButton.Icon>
+                <AppBarToggleButton Label="FullScreen" Icon="FullScreen" Checked="FullScreenToggleButton_Checked" Unchecked="FullScreenToggleButton_Unchecked">
                 </AppBarToggleButton>
-                <AppBarButton x:Name="displayButton" Label="Display"  Icon="FullScreen"  Click="displayButton_Click"  />
+                <AppBarButton x:Name="displayButton" Label="Display"  Icon="NewWindow"  Click="displayButton_Click"  />
                 <AppBarButton x:Name="rotateButton" Label="Rotate"  Icon="Rotate"  Click="rotateButton_Click"   />
             <AppBarButton x:Name="settingButton" Label="Settings"  Icon="Setting" Click="settingButton_Click" />
             <CommandBar.SecondaryCommands>

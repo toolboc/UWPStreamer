@@ -11,6 +11,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.System;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -183,14 +184,18 @@ namespace UWPStreamer
             }
         }
 
-        private void ThemeToggleButton_Checked(object sender, RoutedEventArgs e)
+        private void FullScreenToggleButton_Checked(object sender, RoutedEventArgs e)
         {
-            this.RequestedTheme = ElementTheme.Light;
+            var appView = ApplicationView.GetForCurrentView();
+
+            if (appView.TryEnterFullScreenMode())
+                ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
         }
 
-        private void ThemeToggleButton_Unchecked(object sender, RoutedEventArgs e)
+        private void FullScreenToggleButton_Unchecked(object sender, RoutedEventArgs e)
         {
-            this.RequestedTheme = ElementTheme.Dark;
+            var appView = ApplicationView.GetForCurrentView();
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
         }
 
         private void HelpButton_Click(object sender, RoutedEventArgs e)
