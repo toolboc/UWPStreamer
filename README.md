@@ -35,15 +35,20 @@ address.
 3.Connect gamepad to your Win10 Device using USB, Bluetooth, or dongle
 
 ## Controls ##
-* To hide bottom menu use Right-Trigger or Right Mouse-Click
-* Toggle controller input with Left-Trigger                           
-* On Desktop push Xbox button or Win+G to launch Game Bar for DVR / Screenshots 
+* To hide bottom menu use Right-Trigger or Right Mouse-Click (Allows more screen real-estate and block input from controller to menu)
+* Disable controller input to the game screen with Left-Trigger  ​(Allows selecting the menu w/out input to game)
+* On Desktop push Xbox button or Win+G to launch Game Bar for DVR / Screenshots
 
 ## Usage and Capture Demos ##
 
-[![Hololens Demo](https://img.youtube.com/vi/HVuQsCvUj_o/2.jpg)](https://www.youtube.com/watch?v=HVuQsCvUj_o)
+[![Hololens Demo](https://img.youtube.com/vi/HVuQsCvUj_o/0.jpg)](https://www.youtube.com/watch?v=HVuQsCvUj_o)
 
-[![Video Capture Example](https://img.youtube.com/vi/9HNBWVT911o/2.jpg)](https://www.youtube.com/watch?v=9HNBWVT911o)
+[![Video Capture Example](https://img.youtube.com/vi/9HNBWVT911o/0.jpg)](https://www.youtube.com/watch?v=9HNBWVT911o)
+
+## Capture Tutorials ##
+[No More Beta Productions](https://www.youtube.com/channel/UCdQDN1V4mMzfOirm08Nm8TA) has created a tutorial video showing how to produce custom overlays with  screen recordings taken from UWPStreamer
+
+[![Capture Tutorial](https://img.youtube.com/vi/I1pQiyEAduA/0.jpg)](https://www.youtube.com/watch?v=I1pQiyEAduA)
 
 ## User Demos ##
 
