@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:XAMStreamer"
+             x:Class="XAMStreamer.MainPage">
+
+  <Grid x:Name="screensGrid">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <Image x:Name="Screen1" Source="{Binding Screen1}" >
+    </Image>
+    <Image x:Name="Screen0" Grid.Row="1" Source="{Binding Screen0}" Margin="0,0,0,20">
+    </Image>
+    <ActivityIndicator x:Name="ActivityIndicator" IsRunning="{Binding IsBusy}" Grid.RowSpan="2"/>
+  </Grid>
+
+</ContentPage>
