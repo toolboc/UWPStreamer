@@ -12,7 +12,6 @@ namespace InputRedirectionNTR
 {
     public class NTRInputRedirection
     {
-        ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
 
         string ipAddress;
         byte[] data = new byte[12];

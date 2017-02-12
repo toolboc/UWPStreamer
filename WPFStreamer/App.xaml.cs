@@ -15,8 +15,8 @@ namespace WPFStreamer
     /// </summary>
     public partial class App : Application
     {
-        public static NTRClient ntrClient;
-        public static ScriptHelper scriptHelper;
+        public static NTRClient ntrClient =new NTRClient();
+        public static ScriptHelper scriptHelper = new ScriptHelper();
         public static Boolean Connected = false;
     }
 }

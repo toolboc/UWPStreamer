@@ -45,26 +45,7 @@ namespace WPFStreamer
             ntr = new NTR();
             DataContext = ntr;
 
-            ntr.PropertyChanged += Ntr_PropertyChanged;
-
             InitRemotePlay();
-
-            Screen1.SourceUpdated += Screen1_SourceUpdated;
-            Screen0.SourceUpdated += Screen0_SourceUpdated;
-        }
-
-        private void Screen0_SourceUpdated(object sender, DataTransferEventArgs e)
-        {
-
-        }
-
-        private void Screen1_SourceUpdated(object sender, DataTransferEventArgs e)
-        {
-        }
-
-        private void Ntr_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            Screen1.Source = ntr.Screen1;
         }
 
         private async void InitRemotePlay()
