@@ -1,17 +1,110 @@
-﻿<Window x:Class="WPFStreamer.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFStreamer"
+        x:Class="WPFStreamer.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow">
-    <Grid>
+        Title="UWPStreamer (WPF Edition)">
+    <Window.Resources>
+        <Storyboard x:Key="sbShowRightMenu" >
+            <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0,0,-300,0" To="0,0,0,0" DecelerationRatio=".9" Duration="0:0:1" />
+        </Storyboard>
+        <Storyboard x:Key="sbHideRightMenu">
+            <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0,0,0,0" To="0,0,-300,0" AccelerationRatio=".9" Duration="0:0:1" />
+        </Storyboard>
+        <Storyboard x:Key="sbShowTopMenu" >
+            <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0,-400,0,0" To="0,0,0,0" DecelerationRatio=".9" Duration="0:0:1" />
+        </Storyboard>
+        <Storyboard x:Key="sbHideTopMenu">
+            <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0,0,0,0" To="0,-400,0,0" AccelerationRatio=".9" Duration="0:0:1" />
+        </Storyboard>
+    </Window.Resources>
+    <Grid Background="Black" MouseRightButtonUp="MouseRightButtonUp" MouseLeftButtonUp="MouseLeftButtonUp">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid x:Name="screensGrid" RenderTransformOrigin="0.5,0.5">
+        <ToolBar x:Name="toolBar" FlowDirection="RightToLeft" Grid.Row="1">
+            <Menu x:Name="Menu" DockPanel.Dock="Bottom">
+                <MenuItem Header="..."  FontSize="22">
+                    <MenuItem Header="Settings" Click="settingButton_Click"/>
+                    <MenuItem Header="Rotate" Click="rotateButton_Click"/>
+                    <MenuItem Header="Display" Click="displayButton_Click"/>
+                    <MenuItem Header="FullScreen" Click="fullscreenButton_Click"/>
+                    <MenuItem Header="Help" Click="helpButton_Click" />
+                </MenuItem>
+            </Menu>
+        </ToolBar>
+        <StackPanel Panel.ZIndex="2" x:Name="pnlRightMenu" Orientation="Horizontal" Height="Auto" HorizontalAlignment="Right" Margin="0,0,-300,0">
+            <Grid>
+                <RichTextBox Width="300">
+                    <FlowDocument>
+                        <Paragraph>
+                            <Run Text="UWPStreamer is an open-source NTR CFW streaming client targeting UWP (Xbox One, Hololens, Windows 10, and Windows Phone 10)"/>
+                            <LineBreak/>
+                            <LineBreak/>
+                            <Run Text="Now with support for NTR Input Redirection!"/>
+                            <LineBreak/>
+                            <LineBreak/>
+                            <Run Text="You may find instructions, view source code, and report issues at the "/>
+                            <Hyperlink NavigateUri="https://github.com/toolboc/UWPStreamer">
+                                <Run Text="Project Homepage"/>
+                            </Hyperlink>
+                            <LineBreak/>
+                            <LineBreak/>
+                            <Run Text="To hide bottom menu use Right-Trigger or Right Mouse-Click"/>
+                            <LineBreak/>
+                            <LineBreak/>
+                            <Run Text="Toggle controller input with Left-Trigger"/>
+                            <LineBreak/>
+                            <LineBreak/>
+                            <Run Text="On Desktop push Xbox button or Win+G to launch Game Bar for DVR / Screenshots"/>
+                            <LineBreak/>
+                            <LineBreak/>
+                            <Run Text="To hide this menu, left-click outside of the menu"/>
+                        </Paragraph>
+                    </FlowDocument>
+                </RichTextBox>
+            </Grid>
+        </StackPanel>
+        <StackPanel Panel.ZIndex="2" Name="pnlTopMenu" Orientation="Vertical" Width="400" Height="400" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-400,0,0">
+            <Border BorderBrush="#000000" BorderThickness="1" Height="400" Background="#FFFFFF" >
+                <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="20">
+
+                    <TextBlock Text="IP Address" Margin="5,0,5,0"/>
+                    <TextBox Name="ipAddressTextBox" Margin="5"/>
+
+                    <TextBlock Text="Screen Priority" Margin="5,0,5,0"/>
+                        <ComboBox x:Name="screenPriorityComboBox" SelectedValue="Single" Margin="5">
+                            <ComboBoxItem>Top Screen</ComboBoxItem>
+                            <ComboBoxItem>Bottom Screen</ComboBoxItem>
+                        </ComboBox>
+
+                    <TextBlock Text="Priority Factor" Margin="5,0,5,0"/>
+                    <TextBox Name="priorityFactorTextBox" Margin="5"/>
+
+                    <TextBlock Text="Image Quality" Margin="5,0,5,0"/>
+                    <TextBox Name="imageQualityTextBox" Margin="5"/>
+
+                    <TextBlock Text="QoS Value" Margin="5,0,5,0"/>
+                    <TextBox Name="qosValueTextBox" Margin="5"/>
+
+                    <CheckBox Name="autoConnectCheckBox" Content="Auto Connect" IsChecked="False" Margin="5"/>
+                    <CheckBox Name="saveSettingsCheckBox" Content="Save settings" IsChecked="True" Margin="5"/>
+
+                    <TextBlock x:Name="errorTextBlock" />
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Content="OK" Width="100" HorizontalAlignment="Center" Margin="5" Click="settingsOK_Click"/>
+                        <Button Content="Cancel" Width="100" HorizontalAlignment="Center" Margin="5" Click="settingsCancel_Click"/>
+                    </StackPanel>
+
+                </StackPanel>
+            </Border>
+        </StackPanel>
+        <Grid x:Name="screensGrid" RenderTransformOrigin="0.5,0.5" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>

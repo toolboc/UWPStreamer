@@ -9,6 +9,7 @@ using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -24,7 +25,12 @@ namespace UWPStreamer.Services
 {
     public class NTR : INotifyPropertyChanged
     {
-        UdpClient socket;
+        CancellationTokenSource tokenSource;
+        CancellationToken ct;
+
+        Task ntrRemotePlayTask;
+
+        UdpClient client;
         List<byte> priorityScreenBuffer = new List<byte>();
         List<byte> secondaryScreenBuffer = new List<byte>();
 
@@ -55,6 +61,7 @@ namespace UWPStreamer.Services
 
         //top
         private ImageSource screen1;
+
 
         public ImageSource Screen1
         {
@@ -110,7 +117,7 @@ namespace UWPStreamer.Services
             writer.Flush();
 
             socket.Close();
-            Task.Delay(3000).Wait();
+            Task.Delay(2000).Wait();
 
             socket = new TcpClient();
             await socket.ConnectAsync(serverHost, serverPort);
@@ -124,15 +131,17 @@ namespace UWPStreamer.Services
 
             var intAddress = (long)(uint)BitConverter.ToInt32(IPAddress.Parse(ip).GetAddressBytes(), 0);
 
-            if (socket != null)
-                socket.Close();
+            if (client != null)
+                disconnect();
 
-
-            var client = new UdpClient(8001);
+            client = new UdpClient(8001);
             IPEndPoint server = new IPEndPoint(intAddress, 8001);
 
-            var GetFrames = new Task(() => { while (true) NTRRemoteplayReadJPEG(client.Receive(ref server)); });
-            GetFrames.Start();
+            tokenSource = new CancellationTokenSource();
+            ct = tokenSource.Token;
+
+            ntrRemotePlayTask = new Task(() => { while (true) NTRRemoteplayReadJPEG(client.Receive(ref server)); }, ct);
+            ntrRemotePlayTask.Start();
 
         }
 
@@ -246,6 +255,15 @@ namespace UWPStreamer.Services
                 );
 
                 screenBuffer.Clear();                
+        }
+
+        internal void disconnect()
+        {
+            if (ct.CanBeCanceled)
+                tokenSource.Cancel();
+
+            if (client != null)
+                client.Close();
         }
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
