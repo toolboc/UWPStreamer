@@ -54,16 +54,13 @@
                             </Hyperlink>
                             <LineBreak/>
                             <LineBreak/>
-                            <Run Text="To hide bottom menu use Right-Trigger or Right Mouse-Click"/>
+                            <Run Text="To hide bottom menu use Right Mouse-Click"/>
                             <LineBreak/>
                             <LineBreak/>
-                            <Run Text="Toggle controller input with Left-Trigger"/>
+                            <Run Text="Push Xbox button or Win+G to launch Game Bar for DVR / Screenshots (Win10 only)"/>
                             <LineBreak/>
                             <LineBreak/>
-                            <Run Text="On Desktop push Xbox button or Win+G to launch Game Bar for DVR / Screenshots"/>
-                            <LineBreak/>
-                            <LineBreak/>
-                            <Run Text="To hide this menu, left-click outside of the menu"/>
+                            <Run Text="To hide this menu, Left Mouse-Click outside of the menu"/>
                         </Paragraph>
                     </FlowDocument>
                 </RichTextBox>
@@ -77,10 +74,10 @@
                     <TextBox Name="ipAddressTextBox" Margin="5"/>
 
                     <TextBlock Text="Screen Priority" Margin="5,0,5,0"/>
-                        <ComboBox x:Name="screenPriorityComboBox" SelectedValue="Single" Margin="5">
-                            <ComboBoxItem>Top Screen</ComboBoxItem>
-                            <ComboBoxItem>Bottom Screen</ComboBoxItem>
-                        </ComboBox>
+                    <ComboBox x:Name="screenPriorityComboBox" SelectedValue="Single" Margin="5">
+                        <ComboBoxItem>Top Screen</ComboBoxItem>
+                        <ComboBoxItem>Bottom Screen</ComboBoxItem>
+                    </ComboBox>
 
                     <TextBlock Text="Priority Factor" Margin="5,0,5,0"/>
                     <TextBox Name="priorityFactorTextBox" Margin="5"/>
@@ -104,6 +101,7 @@
                 </StackPanel>
             </Border>
         </StackPanel>
+        <ProgressBar x:Name="ProgressBar" Height="10" Width="100" Foreground="Aqua" Visibility="Collapsed" IsIndeterminate="True" />
         <Grid x:Name="screensGrid" RenderTransformOrigin="0.5,0.5" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -129,5 +127,4 @@
             </Image>
         </Grid>
     </Grid>
-
 </Window>

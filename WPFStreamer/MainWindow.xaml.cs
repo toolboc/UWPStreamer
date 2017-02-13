@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using UWPStreamer.Services;
 using Windows.Storage;
+using Windows.System;
 using Windows.UI.ViewManagement;
 
 namespace WPFStreamer
@@ -27,6 +28,7 @@ namespace WPFStreamer
     /// </summary>
     public partial class MainWindow : Window
     {
+        bool connectionError = false;
         bool isHelpOpen = false;
         bool isSettingsOpen = false;
 
@@ -48,9 +50,29 @@ namespace WPFStreamer
             ntr = new NTR();
             DataContext = ntr;
 
-            InitRemotePlay();
-            
+            Init();
+
             Closing += MainWindow_Closing;
+        }
+
+        private void Init()
+        {
+            bool autoConnect = false;
+
+            try
+            {
+                autoConnect = (bool)Properties.Settings.Default["autoconnect"];
+            }
+            catch
+            {
+                ShowSettings();
+                return;
+            }
+
+            if (autoConnect)
+                InitRemotePlay();
+            else
+                ShowSettings();
         }
 
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -64,23 +86,22 @@ namespace WPFStreamer
 
         private async void InitRemotePlay()
         {
-            //ProgressBar.IsEnabled = true;
+            ProgressBar.Visibility = Visibility.Visible;
 
-            var ip = "192.168.1.145";//Properties.Settings.Default["ip"].ToString();
-            //var priorityMode = Int32.Parse(localSettings.Values["priorityMode"].ToString());
-            //var priorityFactor = Int32.Parse(localSettings.Values["priorityFactor"].ToString());
-            //var quality = Int32.Parse(localSettings.Values["quality"].ToString());
-            //var qosValue = Int32.Parse(localSettings.Values["qosValue"].ToString());
+            var ip = Properties.Settings.Default["ip"].ToString();
+            var priorityMode = Int32.Parse(Properties.Settings.Default["priorityMode"].ToString());
+            var priorityFactor = Int32.Parse(Properties.Settings.Default["priorityFactor"].ToString());
+            var quality = Int32.Parse(Properties.Settings.Default["quality"].ToString());
+            var qosValue = Int32.Parse(Properties.Settings.Default["qosValue"].ToString());
 
             try
             {
-                await ntr.InitRemoteplay(ip);
+                await ntr.InitRemoteplay(ip, priorityMode, priorityFactor, quality, qosValue);
             }
             catch (Exception e)
             {
-                //var messageDialog = new Windows.UI.Popups.MessageDialog("Unable to connect to NTR Debugger on: \n" + ip, "Connection Error");
-                //ProgressBar.IsEnabled = false;
-                //await messageDialog.ShowAsync();
+                MessageBox.Show("Unable to connect to NTR Debugger on: \n" + ip, "Connection Error");
+                ProgressBar.Visibility = Visibility.Collapsed;
                 return;
             }
 
@@ -90,15 +111,14 @@ namespace WPFStreamer
             }
             catch (Exception e)
             {
-                //var messageDialog = new Windows.UI.Popups.MessageDialog("Error while streaming to remote 3DS on: \n" + ip, "Stream Interuppted");
-                //await messageDialog.ShowAsync();
+                MessageBox.Show("Error while streaming to remote 3DS on: \n" + ip, "Stream Interrupted");
             }
             finally
             {
                 startNTRinputRedirection(ip);
             }
 
-            //ProgressBar.IsEnabled = false;
+            ProgressBar.Visibility = Visibility.Collapsed;
         }
 
         private void startNTRinputRedirection(string ip)
@@ -109,12 +129,6 @@ namespace WPFStreamer
                 ct = tokenSource.Token;
                 ntrInputRedirection = new NTRInputRedirection(ip);
 
-                //bottomCommandBar.GotFocus += bottomCommandBar_GotFocus;
-                //bottomCommandBar.LostFocus += bottomCommandBar_LostFocus;
-                //bottomCommandBar.Opening += bottomCommandBar_Opening;
-                //bottomCommandBar.Closed += bottomCommandBar_Closed;
-                //helpPopup.Opened += helpPopup_Opened;
-
                 ntrInputRedirectionTask = new Task(() => { while (true) ntrInputRedirection.ReadMain(); }, ct);
 
                 ntrInputRedirection.CheckConnection();
@@ -122,8 +136,7 @@ namespace WPFStreamer
             }
             catch (Exception e)
             {
-                //var ip = localSettings.Values["ip"].ToString();
-                //var messageDialog = new Windows.UI.Popups.MessageDialog("Error Initiating NTR Input Redirection on: \n" + ip, "Input Redirection Error");
+                MessageBox.Show("Error Initiating NTR Input Redirection on: \n" + ip, "Input Redirection Error");
             }
         }
 
@@ -146,6 +159,7 @@ namespace WPFStreamer
         {
             if (!isSettingsOpen)
             {
+                LoadSettings();
                 Storyboard sb = Resources["sbShowTopMenu"] as Storyboard;
                 sb.Begin(pnlTopMenu);
                 isSettingsOpen = true;
@@ -206,14 +220,17 @@ namespace WPFStreamer
 
         private void MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
+            ToggleMenu();
+        }
 
+        private void ToggleMenu()
+        {
             if (toolBar.Visibility == Visibility.Visible)
             {
                 toolBar.Visibility = Visibility.Collapsed;
             }
             else
                 toolBar.Visibility = Visibility.Visible;
-
         }
 
         private void MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -236,7 +253,34 @@ namespace WPFStreamer
         private void settingsOK_Click(object sender, RoutedEventArgs e)
         {
             HideSettings();
+            InitRemotePlay();
+
+            if (saveSettingsCheckBox.IsChecked == true)
+                saveSettings();
         }
+
+        private void LoadSettings()
+        {
+            ipAddressTextBox.Text = Properties.Settings.Default["ip"].ToString();
+            screenPriorityComboBox.SelectedIndex = 1 - (int)Properties.Settings.Default["priorityMode"];
+            priorityFactorTextBox.Text = Properties.Settings.Default["priorityFactor"].ToString();
+            imageQualityTextBox.Text = Properties.Settings.Default["quality"].ToString();
+            qosValueTextBox.Text = Properties.Settings.Default["qosValue"].ToString();
+            autoConnectCheckBox.IsChecked = (bool)Properties.Settings.Default["autoconnect"];
+        }
+
+        private void saveSettings()
+        {
+            Properties.Settings.Default["ip"] = ipAddressTextBox.Text;
+            Properties.Settings.Default["priorityMode"] = 1 - screenPriorityComboBox.SelectedIndex;
+            Properties.Settings.Default["priorityFactor"] = Int32.Parse(priorityFactorTextBox.Text);
+            Properties.Settings.Default["quality"] = Int32.Parse(imageQualityTextBox.Text);
+            Properties.Settings.Default["qosValue"] = Int32.Parse(qosValueTextBox.Text);
+            Properties.Settings.Default["autoconnect"] = autoConnectCheckBox.IsChecked;
+
+            Properties.Settings.Default.Save();
+        }
+
         private void settingsCancel_Click(object sender, RoutedEventArgs e)
         {
             HideSettings();

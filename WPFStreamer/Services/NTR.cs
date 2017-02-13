@@ -116,12 +116,16 @@ namespace UWPStreamer.Services
 
             writer.Flush();
 
-            socket.Close();
+            if(socket.Connected)
+                socket.Close();
+
             Task.Delay(2000).Wait();
 
             socket = new TcpClient();
             await socket.ConnectAsync(serverHost, serverPort);
-            socket.Close();
+
+            if(socket.Connected)
+                socket.Close();
 
             return true;
         }
