@@ -253,10 +253,11 @@ namespace WPFStreamer
         private void settingsOK_Click(object sender, RoutedEventArgs e)
         {
             HideSettings();
-            InitRemotePlay();
 
             if (saveSettingsCheckBox.IsChecked == true)
                 saveSettings();
+
+            InitRemotePlay();
         }
 
         private void LoadSettings()
