@@ -76,3 +76,10 @@ address.
 
 <img src="http://i.imgur.com/NF5lybH.png" width="500">
 
+## Credits ##
+Inspired by  RattletraPM's original open-source streamer : [SnickerStream](https://github.com/RattletraPM/Snickerstream). 
+
+Impossible without Cell9's NTR CFW and [BootNTR](https://github.com/44670/BootNTR)
+
+Input Redirection thanks to Stary2001's [NTR Input Redirection](https://github.com/Stary2001/InputRedirection) and Kazo's [Input Redirection Client](https://github.com/Kazo/InputRedirectionClient) for PC.
+
