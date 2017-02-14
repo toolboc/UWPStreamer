@@ -41,24 +41,38 @@ address.
 * Disable controller input to the game screen with Left-Trigger  ​(Allows selecting the menu w/out input to game)
 * On Desktop push Xbox button or Win+G to launch Game Bar for DVR / Screenshots
 
-## Usage and Capture Demos ##
+## Videos ##
+
+**Xbox One**
+
+[![Xbox One Demo](https://img.youtube.com/vi/mO7kZx6YRTU/0.jpg)](https://www.youtube.com/watch?v=mO7kZx6YRTU)
+
+**Hololens**
 
 [![Hololens Demo](https://img.youtube.com/vi/HVuQsCvUj_o/0.jpg)](https://www.youtube.com/watch?v=HVuQsCvUj_o)
 
-[![Video Capture Example](https://img.youtube.com/vi/9HNBWVT911o/0.jpg)](https://www.youtube.com/watch?v=9HNBWVT911o)
-
-## Capture Tutorials ##
+## Video Capture ##
 [No More Beta Productions](https://www.youtube.com/channel/UCdQDN1V4mMzfOirm08Nm8TA) has created a tutorial video showing how to produce custom overlays with  screen recordings taken from UWPStreamer
+
+**Tutorial**
 
 [![Capture Tutorial](https://img.youtube.com/vi/I1pQiyEAduA/0.jpg)](https://www.youtube.com/watch?v=I1pQiyEAduA)
 
+**Video Capture with post effects**
+
+[![Video Capture Example](https://img.youtube.com/vi/9HNBWVT911o/0.jpg)](https://www.youtube.com/watch?v=9HNBWVT911o)
+
 ## User Demos ##
+
+**3DS streaming wirelessly to the Xbox One streaming wirelessly to Windows 10 2-n-1 streaming wirelessly to Roku Stick with Miracast**
 
 <img src="http://i.imgur.com/L4Idp0M.jpg" width="500">
 
+**Windows Phone**
+
 <img src="https://static.wiidatabase.de/UWPStreamer-Mobile-1024x576.jpg" width="500">
 
-<img src="http://i.imgur.com/YSiSWjr.jpg" width="500">
+**Xbox One**
 
 <img src="http://i.imgur.com/NF5lybH.png" width="500">
 
