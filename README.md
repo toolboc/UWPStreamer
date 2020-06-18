@@ -19,7 +19,7 @@ An NTR CFW streaming client targeting [UWP](https://msdn.microsoft.com/en-us/win
 <img src="/UWPStreamer/Assets/Gamebar.PNG">
 
 ## Instructions for Video Streaming ##
-*Assumes you have installed NTR CFW on a New Nitnendo 3DS and you know how to get it up and running.*
+*Assumes you have installed NTR CFW on a New Nintendo 3DS and you know how to get it up and running.*
  
 1. Open NTR CFW.  Suggested to use [BootNTR Selector](https://gbatemp.net/threads/release-bootntr-selector.432911/) with NTR CFW v3.4 if you are on firmware 11.2
 <img src="/UWPStreamer/Assets/NTRSelector.PNG">
