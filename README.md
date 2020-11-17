@@ -1,14 +1,14 @@
 # UWPStreamer #
-An NTR CFW streaming client targeting [UWP](https://msdn.microsoft.com/en-us/windows/uwp/get-started/universal-application-platform-guide) (Xbox One, Hololens, Windows 10, and Windows Phone 10)
+An NTR CFW streaming client targeting [UWP](https://msdn.microsoft.com/windows/uwp/get-started/universal-application-platform-guide?WT.mc_id=iot-0000-pdecarlo) (Xbox One, Hololens, Windows 10, and Windows Phone 10)
 
 ![Demo](http://i.imgur.com/GTRoCJv.png)
 
 ## Available in the Windows Store & Precompiled .EXE ##
 
-[![StoreLink](http://i.imgur.com/C6buqwe.png)](https://www.microsoft.com/en-us/store/p/uwpstreamer/9nd66p3vdnxt)
+[![StoreLink](http://i.imgur.com/C6buqwe.png)](https://www.microsoft.com/store/p/uwpstreamer/9nd66p3vdnxt?WT.mc_id=iot-0000-pdecarlo)
 
 
-- [Windows Store Link](https://www.microsoft.com/en-us/store/p/uwpstreamer/9nd66p3vdnxt)
+- [Windows Store Link](https://www.microsoft.com/store/p/uwpstreamer/9nd66p3vdnxt?WT.mc_id=iot-0000-pdecarlo)
 - [Precompiled .EXE](https://github.com/toolboc/UWPStreamer/releases/tag/wpf_v1.0.0.0)
 
 ## Features ##
